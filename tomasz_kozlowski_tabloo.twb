@@ -278,6 +278,15 @@ FROM orders o
     JOIN products p ON od.productCode=p.productCode
 WHERE p.productName IN (&apos;1952 Alpine Renault 1300&apos;, &apos;1968 Ford Mustang&apos;,&apos;1996 Moto Guzzi 1100i&apos;)
 GROUP BY p.productName</relation>
+          <relation connection='mysql.0qr1xlp0ygg2rv1aiippx0hjw1c3' name='Custom SQL Query2' type='text'>SELECT
+    year(o.orderDate),
+    month(o.orderDate),
+    COUNT(*) ilosc
+FROM orders o
+	JOIN orderdetails od ON o.orderNumber=od.orderNumber
+    JOIN products p ON od.productCode=p.productCode
+WHERE p.productName like &apos;%Harley%&apos;
+GROUP BY year(o.orderDate),month(o.orderDate)</relation>
         </_.fcp.ObjectModelEncapsulateLegacy.true...relation>
         <metadata-records>
           <metadata-record class='column'>
@@ -350,11 +359,60 @@ GROUP BY p.productName</relation>
             </attributes>
             <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[_8C172AF343F2478BB0FD707907D551CD]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
           </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>year(o.orderDate)</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[year(o.orderDate)]</local-name>
+            <parent-name>[Custom SQL Query2]</parent-name>
+            <remote-alias>year(o.orderDate)</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_BIGINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SBIGINT&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[_FD775F1CEF404A76A089E6F198872048]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>month(o.orderDate)</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[month(o.orderDate)]</local-name>
+            <parent-name>[Custom SQL Query2]</parent-name>
+            <remote-alias>month(o.orderDate)</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_BIGINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SBIGINT&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[_FD775F1CEF404A76A089E6F198872048]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ilosc</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[ilosc]</local-name>
+            <parent-name>[Custom SQL Query2]</parent-name>
+            <remote-alias>ilosc</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_BIGINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SBIGINT&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[_FD775F1CEF404A76A089E6F198872048]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
         </metadata-records>
       </connection>
       <aliases enabled='yes' />
       <_.fcp.ObjectModelTableType.true...column caption='4A' datatype='table' name='[__tableau_internal_object_id__].[_8C172AF343F2478BB0FD707907D551CD]' role='measure' type='quantitative' />
       <_.fcp.ObjectModelTableType.true...column caption='4C' datatype='table' name='[__tableau_internal_object_id__].[_CE38800B5BB74037ADEECFFEDEBBB828]' role='measure' type='quantitative' />
+      <_.fcp.ObjectModelTableType.true...column caption='4B' datatype='table' name='[__tableau_internal_object_id__].[_FD775F1CEF404A76A089E6F198872048]' role='measure' type='quantitative' />
       <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
       <semantic-values>
         <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
@@ -385,15 +443,36 @@ HAVING COUNT(*) >>10 AND COUNT(*) <<20
 ORDER BY ilosc_produktow]]></relation>
             </properties>
           </object>
+          <object caption='4B' id='_FD775F1CEF404A76A089E6F198872048'>
+            <properties context=''>
+              <relation connection='mysql.0qr1xlp0ygg2rv1aiippx0hjw1c3' name='Custom SQL Query2' type='text'>SELECT
+    year(o.orderDate),
+    month(o.orderDate),
+    COUNT(*) ilosc
+FROM orders o
+	JOIN orderdetails od ON o.orderNumber=od.orderNumber
+    JOIN products p ON od.productCode=p.productCode
+WHERE p.productName like &apos;%Harley%&apos;
+GROUP BY year(o.orderDate),month(o.orderDate)</relation>
+            </properties>
+          </object>
         </objects>
         <relationships>
+          <relationship>
+            <expression op='='>
+              <expression op='[productLine]' />
+              <expression op='[productName]' />
+            </expression>
+            <first-end-point object-id='_CE38800B5BB74037ADEECFFEDEBBB828' />
+            <second-end-point object-id='_8C172AF343F2478BB0FD707907D551CD' />
+          </relationship>
           <relationship>
             <expression op='='>
               <expression op='[]' />
               <expression op='[]' />
             </expression>
             <first-end-point object-id='_CE38800B5BB74037ADEECFFEDEBBB828' />
-            <second-end-point object-id='_8C172AF343F2478BB0FD707907D551CD' />
+            <second-end-point object-id='_FD775F1CEF404A76A089E6F198872048' />
           </relationship>
         </relationships>
       </_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>

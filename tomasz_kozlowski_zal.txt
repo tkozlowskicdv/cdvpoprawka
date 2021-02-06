@@ -2,12 +2,12 @@ https://github.com/tkozlowskicdv/cdvpoprawka.git
 
 2.
 SELECT 
-c.customerName,
+c.contactFirstName,
+c.contactLastName,
 COUNT(*) ile_zamowien
 FROM customers c
 JOIN orders o ON c.customerNumber=o.customerNumber
-GROUP BY c.customerName
-
+GROUP BY c.contactFirstName,c.contactLastName
 
 
 4A
@@ -24,15 +24,15 @@ GROUP BY p.productName
 4B
 
 4B z Harley
-select
-	p.productName,
-    SUM(od.priceEach*od.quantityOrdered),
-    COUNT(*) ile
+SELECT
+    year(o.orderDate),
+    month(o.orderDate),
+    COUNT(*) ilosc
 FROM orders o
 	JOIN orderdetails od ON o.orderNumber=od.orderNumber
     JOIN products p ON od.productCode=p.productCode
 WHERE p.productName like '%Harley%'
-GROUP BY p.productName
+GROUP BY year(o.orderDate),month(o.orderDate)
 
 
 4C
