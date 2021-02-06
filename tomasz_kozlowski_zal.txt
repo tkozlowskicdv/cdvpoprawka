@@ -1,0 +1,46 @@
+https://github.com/tkozlowskicdv/cdvpoprawka.git
+
+2.
+SELECT 
+c.customerName,
+COUNT(*) ile_zamowien
+FROM customers c
+JOIN orders o ON c.customerNumber=o.customerNumber
+GROUP BY c.customerName
+
+
+
+4A
+
+select
+	p.productName,
+    COUNT(*) ile
+FROM orders o
+	JOIN orderdetails od ON o.orderNumber=od.orderNumber
+    JOIN products p ON od.productCode=p.productCode
+WHERE p.productName IN ('1952 Alpine Renault 1300', '1968 Ford Mustang','1996 Moto Guzzi 1100i')
+GROUP BY p.productName
+
+4B
+
+4B z Harley
+select
+	p.productName,
+    SUM(od.priceEach*od.quantityOrdered),
+    COUNT(*) ile
+FROM orders o
+	JOIN orderdetails od ON o.orderNumber=od.orderNumber
+    JOIN products p ON od.productCode=p.productCode
+WHERE p.productName like '%Harley%'
+GROUP BY p.productName
+
+
+4C
+SELECT
+	pl.productLine,
+    COUNT(*) ilosc_produktow
+FROM productlines pl
+	JOIN products p ON pl.productLine=p.productLine
+GROUP BY pl.productLine
+HAVING COUNT(*) >10 AND COUNT(*) <20
+ORDER BY ilosc_produktow
